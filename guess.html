@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Number Guessing Game</title>
+  <style>
+    body {
+      background-color: #e6e6fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #003366;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      font-size: 1em;
+      width: 80px;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 10px 15px;
+      font-size: 1em;
+      background-color: #003366;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #002244;
+    }
+
+    .result {
+      margin-top: 30px;
+      font-size: 1.2em;
+    }
+
+    .attempts {
+      margin-top: 10px;
+      font-size: 1em;
+      color: #555;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Guess the Number!</h1>
+  <p>I’m thinking of a number between <strong>1 and 100</strong>.</p>
+  <input type="number" id="guessInput" min="1" max="100" />
+  <button onclick="checkGuess()">Guess</button>
+  <button onclick="resetGame()">Reset</button>
+
+  <div class="result" id="resultText"></div>
+  <div class="attempts" id="attemptCounter"></div>
+
+  <div style="margin-top: 40px;">
+    <a href="Rubiks.html" style="color: #003366; font-weight: bold;">← Back to Rubik’s Cube Page</a>
+  </div>
+
+  <script>
+    let randomNumber = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+
+    function checkGuess() {
+      const guess = Number(document.getElementById("guessInput").value);
+      const resultText = document.getElementById("resultText");
+      const attemptCounter = document.getElementById("attemptCounter");
+
+      if (!guess || guess < 1 || guess > 100) {
+        resultText.textContent = "Please enter a number between 1 and 100.";
+        return;
+      }
+
+      attempts++;
+      attemptCounter.textContent = `Attempts: ${attempts}`;
+
+      if (guess === randomNumber) {
+        resultText.textContent = `🎉 You got it! The number was ${randomNumber}.`;
+      } else if (guess < randomNumber) {
+        resultText.textContent = "Too low. Try again!";
+      } else {
+        resultText.textContent = "Too high. Try again!";
+      }
+    }
+
+    function resetGame() {
+      randomNumber = Math.floor(Math.random() * 100) + 1;
+      attempts = 0;
+      document.getElementById("guessInput").value = "";
+      document.getElementById("resultText").textContent = "";
+      document.getElementById("attemptCounter").textContent = "";
+    }
+  </script>
+</body>
+</html>
